@@ -2,39 +2,36 @@
  * 
  */
 
-enyo
-		.kind({
-			name : "C1",
-			kind : "FittableRows",
-			components : [ {
-				name : "T",
-				kind : "input"
-			} ],
-			rendered : function() {
-				// rdflib.js initialization
+enyo.kind({
+	name : "C1",
+	kind : "FittableRows",
+	components : [ {
+		name : "T",
+		kind : "input"
+	} ],
+	rendered : function() {
+		// rdflib.js initialization
 
-				var kb = new $rdf.IndexedFormula();
-				kb.sf = new $rdf.Fetcher(kb);
+		var kb = new $rdf.IndexedFormula();
+		kb.sf = new $rdf.Fetcher(kb);
 
-				// load data and fire up
-				kb.sf
-						.nowOrWhenFetched(
-								workUri, // the URI of the linked data
-											// resource
-								// we want to work with
-								undefined,
-								function(ok, body) {
-									// PSEUDO CODE!
+		// load data and fire up
+		kb.sf.nowOrWhenFetched(
+			workUri, // the URI of the linked data
+					// resource
+					// we want to work with
+			undefined,
+			function(ok, body) {
+				// PSEUDO CODE!
 
-									var resultSet = kb
-											.query("select ?n where { ?s a foaf:Person . s? foaf:name ?n}");
+				var resultSet = kb.query("select ?n where { ?s a foaf:Person . s? foaf:name ?n}");
 
-									this.$.T.setValue(resultSet[0].n);
+				this.$.T.setValue(resultSet[0].n);
 
-								}.bind(this));
+			}.bind(this));
 
-			}
-		});
+		}
+	});
 
 enyo.kind({
 	name : "C2",
